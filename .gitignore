@@ -1,3 +1,4 @@
 *.env
+cipher.js
 !example.env
 /node_modules

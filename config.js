@@ -6,7 +6,10 @@ const baseUrl = 'https://api.hamsterkombat.io';
 const urls = {
     tap: `${baseUrl}/clicker/tap`,
     me: `${baseUrl}/auth/me-telegram`,
-    dailyReward: `${baseUrl}/clicker/check-task`
+    taskList: `${baseUrl}/clicker/list-tasks`,
+    checkTask: `${baseUrl}/clicker/check-task`,
+    dailyReward: `${baseUrl}/clicker/check-task`,
+    dailyCipher: `${baseUrl}/clicker/claim-daily-cipher`
 }
 
 function setToken() {

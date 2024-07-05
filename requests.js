@@ -27,6 +27,36 @@ function getDailyReward(){
     })
 }
 
+function claimDailyCipher(cipher){
+    const data = { "cipher": cipher };
+    return axios.post(urls.dailyCipher, data, { headers: getHeaders(data) }).then((res) => {
+        const { dailyCipher } = res.data;
+        dailyCipher ? logDailyCipherClaim(dailyCipher) : false
+    }).catch((error) => {
+        console.log(error?.response?.data?.error_message);
+        process.exit();
+    })
+}
+
+function completeTask(data){
+    const _data = { taskId: data.id };
+    return axios.post(urls.checkTask, _data, { headers: getHeaders() }).then((res) => {
+        const { task } = res.data;
+        task ? logTaskCompletion(task) : false;
+    }).catch((error) => {
+        console.log(error);
+    })
+}
+
+function getAndCompleteTasks(){
+    axios.post(urls.taskList, {}, { headers: getHeaders() }).then((res) => {
+        const { tasks } = res.data;
+        tasks.filter(task => !task.isCompleted).forEach(_ => completeTask(_));
+    }).catch((error) => {
+        console.log(error);
+    })
+}
+
 function logInfo(obj) {
     console.log('Username:', chalk.blue(obj.username));
 }
@@ -51,6 +81,24 @@ function logDailyBonusClaim(task) {
     );
 }
 
+function logTaskCompletion(task) {
+    console.log(
+        'Claiming Task  ...', 
+        chalk.blue('->'),
+        '| Task:', chalk.magenta(task?.id),
+        '| reward:', chalk.yellow(task?.rewardCoins.toFixed(0)),
+        task?.isCompleted ? chalk.green('\u2714') : chalk.red('\u2716')
+    );
+}
+
+function logDailyCipherClaim(data) {
+    console.log(
+        'Claiming Daily Bonus ...', chalk.blue('->'),
+        '| Bonus:', chalk.yellow(data?.bonusCoins.toFixed(0)),
+        data?.bonusCoins ? chalk.green('\u2714') : chalk.red('\u2716')
+    );
+}
+
 function logError(error) {
     console.log(error.response ? error.response.data : error.request ? error.request : 'Error', error.message);
     process.exit();
@@ -63,4 +111,4 @@ function exitProcess() {
     process.exit(); //end the process
 }
 
-module.exports = { logInfo, tap, getDailyReward, logError, exitProcess }
+module.exports = { logInfo, tap, getDailyReward, claimDailyCipher, getAndCompleteTasks, logError, exitProcess }

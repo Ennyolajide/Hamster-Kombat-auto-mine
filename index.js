@@ -2,7 +2,7 @@ require('dotenv').config();
 const axios = require('axios');
 const { taps, interval } = require('./utils.js');
 const { urls, getHeaders } = require('./config');
-const { logInfo, tap, getDailyReward, logError, exitProcess } = require('./requests');
+const { logInfo, tap, getDailyReward, getAndCompleteTasks, logError, exitProcess } = require('./requests');
 
 
 const env = process.env;
@@ -12,7 +12,7 @@ const maxTap = env.MAX_CLICK;
 axios.post(urls.me, {}, { headers: getHeaders() })
     .then((res) => {
         getDailyReward();
-        console.log(res.data);
+        getAndCompleteTasks();
         const { status, telegramUser } = res.data;
         status ? logInfo(telegramUser) : exitProcess;
 
