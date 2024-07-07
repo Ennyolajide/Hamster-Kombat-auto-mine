@@ -58,7 +58,7 @@ function getAndCompleteTasks(){
 }
 
 function logInfo(obj) {
-    console.log('Username:', chalk.blue(obj.username));
+   console.log("User's Name:", chalk.blue(obj.lastName.concat(obj.firstName)));
 }
 
 function logTap(taps, obj) {
