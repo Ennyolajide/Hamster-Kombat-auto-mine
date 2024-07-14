@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const env = process.env;
-const baseUrl = 'https://api.hamsterkombat.io';
+const baseUrl = 'https://api.hamsterkombatgame.io';
 
 const urls = {
     tap: `${baseUrl}/clicker/tap`,
@@ -24,9 +24,9 @@ function getHeaders(data = {}) {
         'Accept-Encoding': 'gzip, deflate, br', 
         'Sec-Fetch-Mode': 'cors', 
         'Accept': '*/*', 
-        'Origin': 'https://hamsterkombat.io', 
+        'Origin': 'https://hamsterkombatgame.io', 
         'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148', 
-        'Referer': 'https://hamsterkombat.io/', 
+        'Referer': 'https://hamsterkombatgame.io/', 
         'Connection': 'keep-alive', 
         'Sec-Fetch-Dest': 'empty'
     };
